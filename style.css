@@ -1,0 +1,96 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  header {
+    height: 150px;
+    background: linear-gradient(-45deg, #dbeff1 0%, #0061ff 100%);
+  }
+  
+  .titulo {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .estiloBotones {
+    color: white;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
+  .estiloBotones a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .estiloInput {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+  
+  .estiloForm {
+    margin-top: 50px;
+    margin-left: 20px;
+  }
+  
+  #divContenido p {
+    font-size: 40px;
+    color: red;
+    font-weight: 50px;
+    text-align: center;
+  }
+  
+  .mensajeInicio {
+    font-size: 15px;
+    color: red;
+    font-weight: 10px;
+    text-align: center;
+  }
+  
+  .opcionesInicio {
+    height: 150px;
+  }
+  
+  .divOpciones {
+    height: 150px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .alinearBoton {
+    padding: 20px;
+    box-shadow: 10px 10px 5px 5px rgba(0, 0, 255, 0.295);
+  }
+  
+  .datoUsuario {
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    text-shadow: 2px 2px white;
+  }
+  
+  .estiloBot {
+    margin-top: 20px;
+    margin-left: 100px;
+  
+    padding: 5px;
+  }
+  
+  .estiloLabel {
+    margin-top: 20px;
+    margin-left: 100px;
+    font-size: 20px;
+    font-weight: 200px;
+  }
+  
