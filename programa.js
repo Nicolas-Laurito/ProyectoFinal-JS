@@ -74,8 +74,17 @@ btnReservar.addEventListener(`click`, () => {
                     `
 
                 document.getElementById(`btn${opcionTurno}`).lastElementChild.addEventListener(`click`, () => {
+      
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Turno Reservado con Exito',
+                      
+                      })
+                    
+      
+                    
                     divPrograma.innerHTML = `
-                            <p>Turno Reservado con exito</p>
+                            
                             `
                     
                     let turnoReservado  = medicos.turnosDisponibles[opcionTurno]
@@ -132,8 +141,22 @@ btnCancelar.addEventListener(`click`, ()=>{
                         console.log(usuariosRegistrados)
                         localStorage.setItem(`usuariosRegistrados`, JSON.stringify(usuariosRegistrados))
                         console.log(usuariosRegistrados)
+                        
+                        Toastify({
+                            text: "Turno Cancelado",
+                            duration: 3000,
+                            close: true,
+                            gravity: "bottom", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                              background: "linear-gradient(-45deg, #dbeff1 0%, #0061ff 100%)",
+                              border: "solid 2px black",
+                            },
+                            onClick: function(){} // Callback after click
+                          }).showToast();
                         divPrograma.innerHTML=`
-                        Turno Cancelado
+                       
                         `
                      })
 

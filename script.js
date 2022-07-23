@@ -124,9 +124,17 @@ btnRegistro.addEventListener(`click`, () => { //EVENTO SOBRE EL BOTON REGISTRARS
 
         localStorage.setItem(`usuariosRegistrados`, JSON.stringify(usuarioNuevo)) //Piso en el local storage el aray de usuarios ya actualizado con el nuevo usuario
 
+        Swal.fire({
+          icon: 'success',
+          title: 'Usuario Registrado con Exito',
+          
+          
+        })
+
         divContenido.innerHTML = `
-        <p>Registro Exitoso</p>
+      
        `
+      
     })
 })
 
@@ -140,8 +148,13 @@ btnInicio.addEventListener(`click`, () => { //LE APLICO UN EVENTO AL BOTON
     if (localStorage.getItem(`usuariosRegistrados`)) {
         usuarioNuevo = JSON.parse(localStorage.getItem(`usuariosRegistrados`)) //con esto veo si esta creado el localStorage lo guardo en una variable y sino lo creo
     } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'No existe el usuario',
+       
+      })
       divContenido.innerHTML = `
-      <p> No existe el usuario</p>
+      
       `
       idUsuario.value = ""
       idClave.value = ""
@@ -157,16 +170,33 @@ btnInicio.addEventListener(`click`, () => { //LE APLICO UN EVENTO AL BOTON
       
         idUsuario.value = ""
         idClave.value = ""
-        divContenido.innerHTML = `
-        <p> Ingreso Exitoso</p>
-        `
+
+        Toastify({
+          text: "Ingreso Exitoso",
+          duration: 2000,
+          close: true,
+          gravity: "bottom", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(-45deg, #dbeff1 0%, #0061ff 100%)",
+            border: "solid 2px black",
+          },
+          onClick: function(){} // Callback after click
+        }).showToast();
+
+       
         setTimeout(function () {
             window.location = "programa.html" //cambia a otra ventana y le doy unos segundos de tiempo para que se vea el mensaje de ingreso
         }, 1500)
 
     } else {
+      Swal.fire({
+        icon: 'error',
+         title: 'Error de usuario y/o contraseña',
+ 
+      })
         divContenido.innerHTML = `
-       <p> Error de usuario y/o contraseña</p>
    `
         idUsuario.value = ""
         idClave.value = ""
