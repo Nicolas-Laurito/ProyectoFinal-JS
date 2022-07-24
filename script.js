@@ -1,3 +1,4 @@
+
 //OBJETOS DE MEDICOS
 
 class Medico {
@@ -52,7 +53,9 @@ class Usuario {
 }
 
 
-localStorage.setItem(`medicosDisponibles`, JSON.stringify(medicosDisponibles))  //CARGO LOS OBJETOS MEDICOS AL LOCALSTORAGE
+
+
+const medicosDisponiblesStorage = JSON.parse(localStorage.getItem(`medicosDisponibles`)) ?? localStorage.setItem(`medicosDisponibles`, JSON.stringify(medicosDisponibles)) //CARGO LOS OBJETOS MEDICOS AL LOCALSTORAGE SI ES QUE NO EXISTEN
 
 const btnRegistro = document.getElementById(`btnRegistro`) //CONSULTO EL BOTON REGISTRARSE
 const divContenido = document.getElementById(`divContenido`) //CONSULTO EL DIV DONDE VOY AGREGAR EL FORMULARIO DE REGISTRO
@@ -118,6 +121,8 @@ btnRegistro.addEventListener(`click`, () => { //EVENTO SOBRE EL BOTON REGISTRARS
         let clave = document.getElementById(`inputClave`).value
 
         const turnoAgendado = []
+    
+        
         const userNuevo = new Usuario(nombre, apellido, dni, contacto, email, clave, turnoAgendado) //cargo los datos que saco de los input a un nuevo objeto
         formRegistro.reset()
         usuarioNuevo.push(userNuevo) //cargo en el array definido antes al nuevo usuario
