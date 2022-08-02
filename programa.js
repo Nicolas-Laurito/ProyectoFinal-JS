@@ -67,17 +67,25 @@ btnReservar.addEventListener(`click`, () => {
             </div>
             </div>
             `
-
+            
+            
             medicos.turnosDisponibles.forEach((turno, i) => { //muestro los turnos disponibles
-                let opcionTurno = i
+               //let opcionTurno = i
+                console.log(i)
                 divPrograma.innerHTML += `
-                    <div id="btn${opcionTurno}">  
+                    <div id="btn${i}">  
                     <label> Reservar ${turno} </label>
                     <button  class="btn btn-primary estiloBot" >Reservar </button>
                     </div>
                     `
 
-            document.getElementById(`btn${opcionTurno}`).lastElementChild.addEventListener(`click`, () => {
+            })
+
+                //VER ESTA PARTE DEL CODIGO Y EL BOTON CANCELAR
+            
+            medicos.turnosDisponibles.forEach((turno,i)=>{
+                
+                document.getElementById(`btn${i}`).lastElementChild.addEventListener(`click`, () => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Turno Reservado con Exito',
@@ -85,25 +93,34 @@ btnReservar.addEventListener(`click`, () => {
                 divPrograma.innerHTML = `
                   
                             `
-                
-                let turno = medicos.turnosDisponibles[opcionTurno]
+                            let indice = i
+                            console.log(indice)
+            
+                let turnoReser = medicos.turnosDisponibles[i]
+                console.log(turnoReser)
                 let idMedico= medicos.id        //GUARDO EL ID DEL MEDICO DEL CUAL SE TOMO EL TURNO PARA LUEGO PODER DEVOLVERLE AL MISMO EN CASO DE CANCELAR
-                let turnoReservado= new Turno(idMedico, turno) //CREO UN OBJETO CON EL ID DEL MEDICO + EL TURNO PARA GUARDAR EN EL ARRAY DE TURNOS RESERVADOS DEL USUARIO
+                console.log(idMedico)
+                let turnoReservado= new Turno(idMedico, turnoReser) //CREO UN OBJETO CON EL ID DEL MEDICO + EL TURNO PARA GUARDAR EN EL ARRAY DE TURNOS RESERVADOS DEL USUARIO
+                console.log(turnoReservado)
                 usuariosRegistrados.forEach((usuarios, i) => {
                     if (usuarios.dni === usuarioActivo) {
                         valor = i
                         usuariosRegistrados[valor].turnosAgendados.push(turnoReservado) //guardo el turno en el array que esta dentro del objeto/usuario activo
-                        
+                        console.log(usuariosRegistrados[valor].turnosAgendados)
                     }
-                    medicos.turnosDisponibles.splice(opcionTurno, 1) //borro el turno disponible que ya fue tomado por el usuario 
+                    
+                    })
+                    console.log(medicos.turnosDisponibles[indice])
+                    medicos.turnosDisponibles.splice(indice,1) //borro el turno disponible que ya fue tomado por el usuario 
                     localStorage.setItem(`usuariosRegistrados`, JSON.stringify(usuariosRegistrados)) //guardo en el localStorage
                     localStorage.setItem(`medicosDisponibles`, JSON.stringify(medicosDisponiblesStorage)) //GUARDO EN EL LOCALSTORAGE LOS OBJETOS MEDICOS CON SUS TURNO DISPONIBLES ACTUALIZADOS
-                    })
                 })
             })
+            })
+           })
         })
-    })
-})
+    
+
 
 //BOTON DE VER TURNOS
 btnVer.addEventListener(`click`, () => {
@@ -114,7 +131,7 @@ btnVer.addEventListener(`click`, () => {
             usuariosRegistrados[indice].turnosAgendados.forEach(turno => {
             medicosDisponiblesStorage.forEach(medicos=>{
                 if(turno.idMedico===medicos.id){
-                    medico= `${medicos.nombreApellido}, ${medicos.especialidad}, `
+                    medico= `${medicos.nombreApellido}, ${medicos.especialidad} `
                     }
                 })
             divPrograma.innerHTML += `
@@ -138,7 +155,7 @@ btnCancelar.addEventListener(`click`, () => {
             usuariosRegistrados[indice].turnosAgendados.forEach((turno, i) => {
                 medicosDisponiblesStorage.forEach(medicos=>{
                     if(turno.idMedico===medicos.id){
-                        medico= `${medicos.nombreApellido}, ${medicos.especialidad}, `
+                        medico= `${medicos.nombreApellido}, ${medicos.especialidad} `
                         }
                     })
 
