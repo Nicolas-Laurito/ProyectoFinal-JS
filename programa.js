@@ -54,7 +54,7 @@ btnReservar.addEventListener(`click`, () => {
                      `
     })
   medicosDisponiblesStorage.forEach((medicos) => {
-    //una vez que selecciono una card pongo en pantalla la que seleccione + los turnos disponibles
+    //una vez que selecciono una card, pongo en pantalla la que seleccione + los turnos disponibles
     document.getElementById(`cards${medicos.id}`).lastElementChild.lastElementChild.lastElementChild.addEventListener(`click`,() => {
           divPrograma.innerHTML = `       
             <div class="card" id="cards${medicos.id}" style="width: 18rem; margin-left:400px; box-shadow: 10px 10px 5px 5px rgba(0, 0, 255, 0.295) ">
@@ -67,9 +67,9 @@ btnReservar.addEventListener(`click`, () => {
             </div>
             `
 
-          medicos.turnosDisponibles.forEach((turno, i) => {
-            //muestro los turnos disponibles
-                     
+                 //muestro los turnos disponibles con un boton para reservar
+            medicos.turnosDisponibles.forEach((turno, i) => {
+                           
             divPrograma.innerHTML += `
                     <div id="btn${i}">  
                     <label> Reservar ${turno} </label>
@@ -78,9 +78,10 @@ btnReservar.addEventListener(`click`, () => {
                     `
                           })
 
-          
-          medicos.turnosDisponibles.forEach((turno, i) => {
+          //RECORRO CADA BOTON Y LE DOY UN EVENTO CLICK PARA RESERVAR EL TURNO
+          medicos.turnosDisponibles.forEach((turno, i) => { 
             document.getElementById(`btn${i}`).lastElementChild.addEventListener(`click`, () => {
+                
                 Swal.fire({
                   icon: "success",
                   title: "Turno Reservado con Exito"
@@ -90,7 +91,7 @@ btnReservar.addEventListener(`click`, () => {
                 let indice = i
               
 
-                let turnoReser = medicos.turnosDisponibles[i]
+                let turnoReser = medicos.turnosDisponibles[i]   //GUARDO EL TURNO QUE ELEJI MEDIANTE EL EVENTO CLICK
                 let idMedico = medicos.id //GUARDO EL ID DEL MEDICO DEL CUAL SE TOMO EL TURNO PARA LUEGO PODER DEVOLVERLE AL MISMO EN CASO DE CANCELAR
                 let turnoReservado = new Turno(idMedico, turnoReser); //CREO UN OBJETO CON EL ID DEL MEDICO + EL TURNO PARA GUARDAR EN EL ARRAY DE TURNOS RESERVADOS DEL USUARIO
                 
@@ -98,10 +99,10 @@ btnReservar.addEventListener(`click`, () => {
                   if (usuarios.dni === usuarioActivo) {
                     valor = i
                     usuariosRegistrados[valor].turnosAgendados.push(turnoReservado) //guardo el turno en el array que esta dentro del objeto/usuario activo
-                    console.log(usuariosRegistrados[valor].turnosAgendados)
+                    
                   }
                 })
-                console.log(medicos.turnosDisponibles[indice])
+                
                 medicos.turnosDisponibles.splice(indice, 1); //borro el turno disponible que ya fue tomado por el usuario
                 localStorage.setItem(`usuariosRegistrados`,JSON.stringify(usuariosRegistrados)) //guardo en el localStorage
                 localStorage.setItem(`medicosDisponibles`,JSON.stringify(medicosDisponiblesStorage)) //GUARDO EN EL LOCALSTORAGE LOS OBJETOS MEDICOS CON SUS TURNO DISPONIBLES ACTUALIZADOS
@@ -115,12 +116,14 @@ btnReservar.addEventListener(`click`, () => {
 //BOTON DE VER TURNOS
 btnVer.addEventListener(`click`, () => {
   divPrograma.innerHTML = `Turnos Agendados`
+
+  //COMPARO EL USUARIO ACTIVO CON LOS USUARIOS CARGADOS EN EL ARRAY PARA TRAER SOLO LOS TURNOS RESERVADOS POR EL ACTIVO
   usuariosRegistrados.forEach((usuarios, index) => {
     if (usuarios.dni === usuarioActivo) {
       indice = index
       usuariosRegistrados[indice].turnosAgendados.forEach((turno) => {
         medicosDisponiblesStorage.forEach((medicos) => {
-          if (turno.idMedico === medicos.id) {
+          if (turno.idMedico === medicos.id) {                  //COMPARO EL ID DE LOS MEDICOS CON EL ID ALMAACENADO AL RESERVAR UN TURNO, PARA LUEGO PODER TRAER LA ESPECIALIDAD Y LOS DATOS DEL MISMO
             medico = `${medicos.nombreApellido}, ${medicos.especialidad} `
           }
         })
@@ -147,7 +150,7 @@ btnCancelar.addEventListener(`click`, () => {
           }
         })
 
-        //MUESTRO ESOS DATOS EN FORMA DE BOTON PARA CLICKEAR Y CANCELAR
+        //MUESTRO ESOS DATOS + BOTON PARA CLICKEAR Y CANCELAR
 
         divPrograma.innerHTML += `
                     <div id="btnCancel${i}">

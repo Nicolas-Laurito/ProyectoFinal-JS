@@ -166,7 +166,7 @@ btnInicio.addEventListener(`click`, () => { //LE APLICO UN EVENTO AL BOTON
     }
 
     let flag = usuarioNuevo.some(user => user.dni === idUsuario.value && idClave.value === user.clave)
-    //guardo en una variable true o False que devuelve some del comparar lo que ingreso por teclado el usuario con lo archivado en el localStorage
+    //guardo en una variable true o False que devuelve some al comparar lo que ingreso por teclado el usuario con lo archivado en el localStorage
     if (flag === true) {
 
         let usuarioActivo = idUsuario.value //guardo en una variable el usuario que ingreso
