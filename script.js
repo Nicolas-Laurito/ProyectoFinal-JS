@@ -52,7 +52,19 @@ class Usuario {
     }
 }
 
+//aplico fetch para consultar datos externos
+const infoCentral = document.getElementById(`infoCentral`)
+fetch(`info.json`)
+.then(promise =>promise.json())
+.then(data => {
+  
+ 
+  infoCentral.innerHTML=`
+  <p class="estiloFetch">${data[0].info}</p>
+      <img src="./img/${data[0].img}" class="imgFetch">
 
+  `
+})
 
 
 const medicosDisponiblesStorage = JSON.parse(localStorage.getItem(`medicosDisponibles`)) ?? localStorage.setItem(`medicosDisponibles`, JSON.stringify(medicosDisponibles)) //CARGO LOS OBJETOS MEDICOS AL LOCALSTORAGE SI ES QUE NO EXISTEN
@@ -63,6 +75,9 @@ const divContenido = document.getElementById(`divContenido`) //CONSULTO EL DIV D
 //BOTON REGISTRARSE
 btnRegistro.addEventListener(`click`, () => { //EVENTO SOBRE EL BOTON REGISTRARSE, AGREGA UN FORMULARIO DE REGISTRO
     
+  infoCentral.style.display="none"
+
+
   //AGREGO DINAMICAMENTE EL FORMULARIO DE REGISTRO
   divContenido.innerHTML = `                            
     <form class="row g-3 estiloForm container" id="formRegistro" >
@@ -139,7 +154,7 @@ btnRegistro.addEventListener(`click`, () => { //EVENTO SOBRE EL BOTON REGISTRARS
         divContenido.innerHTML = `
       
        `
-      
+       infoCentral.style.display="block"
     })
 })
 
